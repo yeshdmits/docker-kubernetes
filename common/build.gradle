@@ -1,0 +1,23 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+dependencies {
+	implementation libraries.spring_boot_jpa_web
+	implementation libraries.slf4j
+	developmentOnly libraries.spring_boot_devtools
+	testImplementation libraries.spring_boot_starter_test
+	runtimeOnly libraries.postgresql
+	compileOnly libraries.lombok_dependency
+	annotationProcessor libraries.lombok_processor
+	implementation libraries.swagger
+}
+
+test {
+	useJUnitPlatform()
+}
+
+jar.enabled = true
+

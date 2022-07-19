@@ -1,0 +1,5 @@
+rootProject.name = 'docker-kubernetes'
+include ':actor'
+include ':common'
+include ':director'
+include ':movie'

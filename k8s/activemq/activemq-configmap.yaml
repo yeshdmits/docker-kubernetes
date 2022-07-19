@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: activemq-configmap
+  labels:
+    main: docker-kubernetes-project
+    app: activemq
+data:
+  ACTIVEMQ_CONFIG_DEFAULTACCOUNT: "false"

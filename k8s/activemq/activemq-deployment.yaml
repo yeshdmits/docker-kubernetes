@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activemq
+  labels:
+    main: docker-kubernetes-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: activemq
+  template:
+    metadata:
+      labels:
+        app: activemq
+    spec:
+      volumes:
+        - name: activemq-pv-storage
+          persistentVolumeClaim:
+            claimName: activemq-pv-claim
+      containers:
+        - name: web
+          image: webcenter/activemq
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 61616
+            - containerPort: 8161
+          envFrom:
+            - configMapRef:
+                name: activemq-configmap
+            - secretRef:
+                name: activemq-secret
+          volumeMounts:
+            - mountPath: "/data/activemq"
+              name: activemq-pv-storage
+              readOnly: false

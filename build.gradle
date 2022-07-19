@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+subprojects {
+    group 'yeshenko'
+    version '1.0-SNAPSHOT'
+    sourceCompatibility = '1.8'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+ext.libraries = [
+        spring_boot_jpa_web     : [
+                'org.springframework.boot:spring-boot-starter-data-jpa',
+                'org.springframework.boot:spring-boot-starter-web'
+        ],
+        spring_boot_devtools    : 'org.springframework.boot:spring-boot-devtools',
+        spring_boot_starter_test: 'org.springframework.boot:spring-boot-starter-test',
+        postgresql              : 'org.postgresql:postgresql',
+        lombok_dependency       : 'org.projectlombok:lombok:1.18.22',
+        lombok_processor        : 'org.projectlombok:lombok:1.18.22',
+        slf4j                   : 'org.slf4j:slf4j-api:1.7.32',
+        activemq                : 'org.springframework.boot:spring-boot-starter-activemq:2.5.6',
+        jackson                 : 'com.fasterxml.jackson.core:jackson-core:2.13.0',
+        apache_commons          : [
+                'org.apache.commons:commons-lang3:3.12.0',
+                'commons-collections:commons-collections:3.2.2'
+        ],
+        swagger                 : 'org.springdoc:springdoc-openapi-ui:1.5.10'
+]
+
+test {
+    useJUnitPlatform()
+}

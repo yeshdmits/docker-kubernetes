@@ -1,0 +1,77 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: director-deployment
+  labels:
+    main: docker-kubernetes-project
+    app: director-k8s-application
+spec:
+  selector:
+    matchLabels:
+      project: director
+  template:
+    metadata:
+      labels:
+        project: director
+    spec:
+      containers:
+        - name: director-web
+          image: yeshenko/director-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8084
+          envFrom:
+            - secretRef:
+                name: postgresql-secret
+            - secretRef:
+                name: activemq-secret
+          livenessProbe:
+            tcpSocket:
+              port: 8084
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: 8084
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          volumeMounts:
+            - mountPath: /datasets
+              name: file
+      volumes:
+        - name: file
+          hostPath:
+            path: /docker-kubernetes/datasets
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: director-autoscaling
+  labels:
+    main: docker-kubernetes-project
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: director-deployment
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 20
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 10

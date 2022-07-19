@@ -1,0 +1,72 @@
+= docker-kubernetes
+
+Cinematic library
+
+The application can:
+
+Part I (movie 📽)
+
+  🗃 database
+  - get the name of the movie and returns the name, rating, year
+    🔸(url: my-host.com/movies/name  param: name)
+  - get all saved movies
+    🔸 (url: my-host.com/movies)
+  📜 file
+  - get movies with highest rating by specifying how many films should be returned
+    🔸 (url: my-host.com/movies/best  param: total)
+  - get all movies for a certain period
+    🔸 (url: my-host.com/movies/period  param: fromYear, toYear)
+
+Part II (actor 🦸)
+
+  🗃 database
+  - get all saved actors
+    🔸 (url: my-host.com/actors)
+  - get the most hardworking actors and the number of films in which they played
+    🔸 (url: my-host.com/actors/hardworking)
+  📜 file
+  - get all movies by fullname of actor
+    🔸 (url: my-host.com/actors/movies/actor  param: fullName)
+  - get all actors by title of movie
+    🔸 (url: my-host.com/actors/movie  param: title)
+
+Part III (director 📝)
+
+  🗃 database
+  - get all saved directors
+    🔸 (url: my-host.com/directors)
+  - get rating of directors by number of movies made
+    🔸 (url: my-host.com/directors/rating)
+  📜 file
+  - get all movies by a specific director
+    🔸 (url: my-host.com/directors/movies  param: name)
+
+Part IV (request ❓)
+
+  🗃 database
+    Get entire history of requests by:
+   🔸 (url: my-host.com/(movies,directors,actors)*/requests/...)
+                                                     - request type;
+                                                       (.../type  param: type)
+                                                     - username;
+                                                       (.../username  param: username)
+                                                     - result.
+                                                       (.../result  param: result)
+
+
+For the application to work correctly, you need:
+
+1. Visit https://datasets.imdbws.com/
+2. Download archives, unzip .tsv files and rename them:
+   * name.basics.tsv.gz -> people.tsv
+   * title.basics.tsv.gz -> movies.tsv
+   * title.ratings.tsv.gz -> ratings.tsv
+   * title.principals.tsv.gz -> roles.tsv
+3. Create "**datasets**" directory in root project directory and paste four .tsv files.
+4. Run project:
+   *  First of all install on PC docker, kubernetes and minikube
+   *  Launch file "app-init.sh" from console ( bash ./app-init.sh )
+   *  Make sure all pods are working and get an IP address minikube
+   *  Add the following line to the bottom of the /etc/hosts file on your computer (you will need administrator access)❗
+
+   << your ip (192.168.49.2) my-host.com >>

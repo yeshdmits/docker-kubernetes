@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-service
+  labels:
+    main: docker-kubernetes-project
+    app: movie-k8s-application
+    project: movie
+spec:
+  selector:
+    project: movie
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8081
+      protocol: TCP
+  externalIPs:
+    - 80.11.12.11

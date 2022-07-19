@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: activemq
+  labels:
+    main: docker-kubernetes-project
+spec:
+  selector:
+    app: activemq
+  type: NodePort
+  ports:
+    - name: activemq-http-1
+      port: 61616
+      targetPort: 61616
+      protocol: TCP
+    - name: activemq-http-2
+      port: 8161
+      targetPort: 8161
+      protocol: TCP

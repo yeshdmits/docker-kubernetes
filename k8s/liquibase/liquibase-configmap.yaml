@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: liquibase-configmap
+  labels:
+    main: docker-kubernetes-project
+    app: liquibase
+data:
+  DB_URL: jdbc:postgresql://postgres/kuber

@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+            http://www.liquibase.org/xml/ns/pro
+            http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd"
+        logicalFilePath="liquibase/changelog/changelog-1.0.0.requests.xml">
+    <changeSet id="1.0.0">
+        <createTable tableName="requests">
+            <column name="request_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="result" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="request_type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: liquibase
+  labels:
+    main: docker-kubernetes-project
+spec:
+  template:
+    spec:
+      containers:
+        - name: liquibase
+          image: yeshenko/liquibase-job
+          envFrom:
+            - configMapRef:
+                name: liquibase-configmap
+            - secretRef:
+                name: liquibase-secret
+      restartPolicy: Never
